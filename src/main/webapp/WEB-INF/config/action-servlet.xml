@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="http://www.springframework.org/schema/context" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://www.springframework.org/schema/beans" 
+xmlns:mvc="http://www.springframework.org/schema/mvc" 
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 주석처리!!!!!!
+	 <annotation-driven />-->
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!--주석처리!!!!
+	<resources mapping="/resources/**" location="/resources/" />-->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 주석처리함!!!!
+	 <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>-->
+	<!--19~22줄은 homeController에서 return "home"에 데해 설명할때 경로와 확장자를 써주지 않아도 된다고 설정해준 부분!!-->
+	<context:component-scan base-package="com.gebalstory.gcbus" ></context:component-scan>
+	<!--해당 부분은 해당 패키지에서 @component 어노테이션이 적용된 클래스를 검색하여 빈으로 자동등록 해주는 기능을 한다.-->
+    <!-- <bean id ="sampleService" class="first.sample.service.SampleServiceImpl"/>-->
+      
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="LoggerInterceptor" class="com.gebalstory.gcbus.common.logger.LoggerInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+      
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+      
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+    <!-- 제이슨 버전 문제였음 중꿔 애들이 맞긴맞네 -->
+      
+    <bean
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
+        p:viewClass="org.springframework.web.servlet.view.JstlView"
+        p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
+    </bean>
+    
+    <mvc:annotation-driven>
+    	<mvc:argument-resolvers>
+    		<bean class="com.gebalstory.gcbus.common.resolver.CustomMapArgumentResolver"/>
+    	</mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    
+    <context:component-scan base-package="gcbus" use-default-filters="false">
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <aop:aspectj-autoproxy/>
+    <bean id="loggerAspect" class="com.gebalstory.gcbus.common.logger.LoggerAspect"/>
+
+</beans>
