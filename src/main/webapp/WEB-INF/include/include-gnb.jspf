@@ -21,7 +21,7 @@
 			</a>
 		</li>
 		<li class="gnb_menu" id="board">
-			<a class="" href="<c:url value='/openBoardList.do'/>">
+			<a class="" href="<c:url value='/sample/openBoardList.do'/>">
 				<img src="./image/board_icon.png" alt="" class="gnb_icon">
 				게시판
 			</a>

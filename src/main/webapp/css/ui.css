@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+@CHARSET "UTF-8"; 
   
 a:link, a:visited {text-decoration: none; color: #656565;}
   
@@ -39,11 +39,6 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 .sc_route_result p {text-align:right;}
 .margin10{margin:10px;}
 .margin0{margin:0px;}
-.routeTable{width:600px; border-collapse: collapse; margin: 10px;}
-.routeTable th, td{border: 1px solid black; padding: 10px;}
-.routeTable th{width:80px; background-color:#808080; color: #e8eced;}
-.routeTable .vehicletime{width:100px; }
-.routeTable .nodename{width:220px; }
 .direction_li{height:100px; width:120px; position: relative; top: 0; left: 0; text-align: center;cursor: pointer;}
 .li_right{float:left;}
 .li_left{float:right}
